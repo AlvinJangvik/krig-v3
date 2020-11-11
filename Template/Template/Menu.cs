@@ -27,9 +27,7 @@ namespace Template
         private Vector2 button_size = new Vector2(100, 50);
         // Starts
         private Vector2 game_start = new Vector2(350, 200);
-        private Vector2 start_easy = new Vector2(670, 410);
-        private Vector2 start_normal = new Vector2(670, 350);
-        private Vector2 start_hard = new Vector2(670, 290);
+        private Vector2 open_map = new Vector2(670, 410);
         // Upgrades
         private Vector2 up_Dmg  = new Vector2(20, 80);
         private Vector2 up_Amount = new Vector2(20, 140);
@@ -89,26 +87,15 @@ namespace Template
                 {
                     // ######
                     // STARTS
-                    if(Collision(mState, start_easy))
+                    if(Collision(mState, open_map))
                     {
-                        Effects.Clear_blood();
+                        /* Effects.Clear_blood();
                         select.Play(0.1f, 1, 0);
                         soldiers.Fight(Rand(1, 35), Rand(5, 20), Rand(50, 150));
-                        soldiers.Game = 1;
-                    }
-                    else if (Collision(mState, start_normal))
-                    {
-                        Effects.Clear_blood();
+                        soldiers.Game = 1; */
                         select.Play(0.1f, 1, 0);
-                        soldiers.Fight(Rand(120, 150), Rand(50, 70), Rand(150, 250));
-                        soldiers.Game = 1;
-                    }
-                    else if (Collision(mState, start_hard))
-                    {
                         Effects.Clear_blood();
-                        select.Play(0.1f, 1, 0);
-                        soldiers.Fight(Rand(450, 850), Rand(100, 130), Rand(250, 350));
-                        soldiers.Game = 1;
+                        soldiers.Game = 4;
                     }
 
                     // ########
@@ -149,14 +136,16 @@ namespace Template
                 spriteBatch.DrawString(text, "Money: " + money + "$", new Vector2(10, 10), Color.Black);
 
                 // Start button
-                spriteBatch.Draw(tex, new Rectangle((int)start_easy.X, (int)start_easy.Y, (int)button_size.X, (int)button_size.Y), Color.DarkBlue);
-                spriteBatch.DrawString(text, "Easy", start_easy + (button_size / 3), Color.White);
-
-                spriteBatch.Draw(tex, new Rectangle((int)start_normal.X, (int)start_normal.Y, (int)button_size.X, (int)button_size.Y), Color.DarkBlue);
-                spriteBatch.DrawString(text, "Normal", start_normal + (button_size / 3), Color.White);
-
-                spriteBatch.Draw(tex, new Rectangle((int)start_hard.X, (int)start_hard.Y, (int)button_size.X, (int)button_size.Y), Color.DarkBlue);
-                spriteBatch.DrawString(text, "Hard", start_hard + (button_size / 3), Color.White);
+                if (!Collision(oldMState, open_map))
+                {
+                    spriteBatch.Draw(tex, new Rectangle((int)open_map.X, (int)open_map.Y, (int)button_size.X, (int)button_size.Y), Color.DarkBlue);
+                    spriteBatch.DrawString(text, "Map", open_map + (button_size / 3), Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(tex, new Rectangle((int)open_map.X - 2, (int)open_map.Y - 2, (int)button_size.X + 4, (int)button_size.Y + 4), Color.DarkBlue);
+                    spriteBatch.DrawString(text, "Map", open_map + (button_size / 3), Color.White);
+                }
 
                 // Upgrade buttons
                 spriteBatch.DrawString(text, "Upgrades", new Vector2(20, 60), Color.Black);

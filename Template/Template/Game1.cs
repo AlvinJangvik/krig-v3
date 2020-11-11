@@ -79,6 +79,10 @@ namespace Template
             controll.Update();
             soldier.Update();
             effects.Update();
+            if(soldiers.Game == 4)
+            {
+                map.Update();
+            }
 
             base.Update(gameTime);
         }

@@ -288,6 +288,8 @@ namespace Template
                                 {
                                     Console.WriteLine("Red Won");
                                     Menu.Win();
+                                    Map.Enemey();
+                                    Map.Win();
                                     game = 0;
                                     break;
                                 }
@@ -383,6 +385,7 @@ namespace Template
                                 if (redHealth[o] <= 0) { temp2--; }
                                 if (temp2 == 0)
                                 {
+                                    Map.Enemey();
                                     game = 0;
                                     break;
                                 }
