@@ -113,8 +113,9 @@ namespace Template
         // ############################################################################
         //                Fight
         // ############################################################################
-        public static void Fight(int bluSize, int bluDmg, int bluHealth)
+        public static void Fight(int bluSize, int bluDmg, int bluHealth, bool invade)
         {
+            fun = invade;
             // Difficulty
             blueSoldierAmount = bluSize;
             blueDmgValue = bluDmg;
@@ -288,7 +289,10 @@ namespace Template
                                 {
                                     Console.WriteLine("Red Won");
                                     Menu.Win();
-                                    Map.Enemey();
+                                    if (Rand(1, 20) != 1)
+                                    {
+                                        Map.Enemey();
+                                    }
                                     Map.Win();
                                     game = 0;
                                     break;
@@ -342,8 +346,9 @@ namespace Template
                         }
                         redChange[i]--;
                     }
+                    if (temp2 == 0) { break; }
                 }
-                else
+                else // Wait
                 {
                     if(Rand(0,wait) == 0)
                     {
@@ -390,6 +395,7 @@ namespace Template
                                     break;
                                 }
                             }
+                            if(temp2 == 0) { break; }
 
                             if (blueAim[i] != -1) { break; }
                             else
@@ -434,8 +440,9 @@ namespace Template
                         }
                         blueChange[i]--;
                     }
+                    if(temp2 == 0) { break; }
                 }
-                else
+                else // Wait
                 {
                     if(Rand(0,wait) == 0)
                     {

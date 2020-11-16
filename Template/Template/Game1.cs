@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Template.Content;
 
 namespace Template
 {
@@ -17,6 +18,8 @@ namespace Template
         Controll controll = new Controll();
         Menu menu;
         Map map;
+        Road road;
+        Clouds clouds;
         //KOmentar
         public Game1()
         {
@@ -33,7 +36,7 @@ namespace Template
         protected override void Initialize()
         {
             soldiers.RedSoldierAmount = 500;
-            soldiers.Fight(500, 15, 100);
+            soldiers.Fight(500, 15, 100, false);
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             base.Initialize();
@@ -48,10 +51,12 @@ namespace Template
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            soldier = new soldiers(Content.Load<Texture2D>("GreenSlime"), Content.Load<Texture2D>("MagicMan"), Content.Load<SoundEffect>("Explosion"));
+            soldier = new soldiers(Content.Load<Texture2D>("Devilman"), Content.Load<Texture2D>("Swordsman"), Content.Load<SoundEffect>("Explosion"));
             effects = new Effects(Content.Load<Texture2D>("svart"));
-            menu = new Menu(Content.Load<Texture2D>("svart"), Content.Load<SpriteFont>("basic"), Content.Load<SoundEffect>("Select"));
-            map = new Map(Content.Load<Texture2D>("svart"));
+            menu = new Menu(Content.Load<Texture2D>("Button"), Content.Load<SpriteFont>("basic"), Content.Load<SoundEffect>("Select"));
+            road = new Road(Content.Load<Texture2D>("svart"));
+            map = new Map(Content.Load<Texture2D>("Castle"), Content.Load<Texture2D>("Tavern"), Content.Load<Texture2D>("svart"), Content.Load<SpriteFont>("basic"));
+            clouds = new Clouds(Content.Load<Texture2D>("Cloud"));
             // TODO: use this.Content to load your game content here 
         }
 
@@ -81,6 +86,7 @@ namespace Template
             effects.Update();
             if(soldiers.Game == 4)
             {
+                clouds.Update();
                 map.Update();
             }
 
@@ -108,7 +114,9 @@ namespace Template
             menu.Draw(spriteBatch);
             if(soldiers.Game == 4)
             {
+                road.Draw(spriteBatch);
                 map.Draw(spriteBatch);
+                clouds.Draw(spriteBatch);
             }
 
             spriteBatch.End();
